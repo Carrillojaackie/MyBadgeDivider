@@ -1,74 +1,93 @@
-import { Image, StyleSheet, Platform } from 'react-native';
-
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
+import React, { useState } from 'react';
+import { StyleSheet, TouchableOpacity } from 'react-native';
+import { Badge, Divider } from 'react-native-paper';  // Importamos Badge y Divider de react-native-paper
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 
-export default function HomeScreen() {
+export default function TabTwoScreen() {
+  // Estado para el número del Badge
+  const [badgeCount, setBadgeCount] = useState(3);
+
+  // Función para aumentar el número del Badge cuando se hace clic en el botón
+  const handleButtonClick = () => {
+    setBadgeCount(badgeCount + 1);
+  };
+
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
+    <ThemedView style={styles.container}>
+      {/* Ejemplo de Badge sobre el botón Explore */}
+      <ThemedText type="title">Badge</ThemedText>
+      <ThemedText>
+        El componente Badge se utiliza para mostrar una pequeña etiqueta con un número o texto. Es comúnmente usado para
+        notificaciones o para mostrar cantidades.
+      </ThemedText>
+      
+      {/* Botón Explore con Badge */}
+      <TouchableOpacity style={styles.button} onPress={handleButtonClick}>
+        <ThemedText style={styles.buttonText}>Explore</ThemedText>
+        <Badge style={styles.badge}>{badgeCount}</Badge> {/* Badge sobre el botón con número variable */}
+      </TouchableOpacity>
+
+      <Divider style={styles.divider} /> {/* Divider para separar los ejemplos */}
+      
+      {/* Ejemplo de Divider con lista de nombres */}
+      <ThemedText type="title">Divider</ThemedText>
+      <ThemedText>
+        El componente Divider crea una línea divisoria que se utiliza para separar visualmente diferentes secciones de
+        contenido.
+      </ThemedText>
+
+      {/* Lista de nombres con Divider */}
+      <ThemedText type="title">Lista de nombres:</ThemedText>
+      <ThemedView style={styles.listContainer}>
+        <ThemedText>Jared gonzalez Salinas – 20151625 </ThemedText>
+        <Divider style={styles.divider} />
+        <ThemedText>Andrea Lizeth Villalobos Espinosa – 20151635</ThemedText>
+        <Divider style={styles.divider} />
+        <ThemedText>Erick Mastachi Zuñiga – 20151698 </ThemedText>
+        <Divider style={styles.divider} />
+        <ThemedText>Oscar Ivan Vicencio Romo – 20151631 </ThemedText>
+        <Divider style={styles.divider} />
+        <ThemedText>Jaqueine carrillo avila - 20151686 </ThemedText>
       </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12'
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+    </ThemedView>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
+  container: {
+    padding: 16,
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
+  badge: {
+    backgroundColor: '#6200ee',
+    color: 'white',
     position: 'absolute',
+    top: -15,
+    right: -15,
+    fontSize: 20, // Hacemos el badge más grande
+    minWidth: 30,
+    height: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  button: {
+    backgroundColor: '#6200ee',
+    paddingVertical: 8, // Hacemos el botón más pequeño
+    paddingHorizontal: 15,
+    borderRadius: 5,
+    position: 'relative',
+    alignItems: 'center',
+    marginVertical: 20,
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 16, // Hacemos el texto del botón un poco más pequeño
+  },
+  listContainer: {
+    marginVertical: 20,
+  },
+  divider: {
+    marginVertical: 10,
+    backgroundColor: '#ddd',
   },
 });
